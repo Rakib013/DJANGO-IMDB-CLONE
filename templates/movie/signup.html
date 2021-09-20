@@ -1,0 +1,37 @@
+<div class="login-wrapper"  id="signup-content">
+    <div class="login-content">
+        <a href="#" class="close">x</a>
+        <h3>sign up</h3>
+        <form method="POST" action="{% url "signup" %}">
+            {% csrf_token %}
+            <div class="row">
+                <label for="username">
+                    Username:
+                    <input type="text" name="username" id="username" placeholder="Username"  required="required" />
+                </label>
+            </div>
+           
+            <div class="row">
+                <label for="email">
+                    your email:
+                    <input type="email" name="email" id="email" placeholder="Email Address"  required="required" />
+                </label>
+            </div>
+             <div class="row">
+                <label for="password">
+                    Password:
+                    <input type="password" name="password" id="password" placeholder="Password"  required="required" />
+                </label>
+            </div>
+             <div class="row">
+                <label for="repassword2">
+                    re-type Password:
+                    <input type="password" name="password2" id="repassword2" placeholder="Confirm Password" required="required" />
+                </label>
+            </div>
+           <div class="row">
+             <button type="submit">sign up</button>
+           </div>
+        </form>
+    </div>
+</div>

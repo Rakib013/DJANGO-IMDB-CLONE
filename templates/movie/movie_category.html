@@ -1,0 +1,101 @@
+{% extends './home.html' %}
+{% load static %}
+
+{% block title %}
+	<title>Movies</title>
+{% endblock title %}
+	
+{% block content %}
+
+<div class="buster-light">
+	<div class="hero common-hero">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="hero-ct">
+						
+						{% if movie_category %}
+							<h1>{{movie_category}} movies</h1>
+						{% elif movie_language %}
+							<h1>{{movie_language}} movies</h1>
+						{% endif %}
+							
+						<ul class="breadcumb">
+							<li class="active"><a href="#">Home</a></li>
+							<li> <span class="ion-ios-arrow-right"></span> movie listing</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="page-single">
+		<div class="container">
+			<div class="row ipad-width">
+				<div>
+					<div class="topbar-filter">
+						<p>Found <span>1,608 movies</span> in total</p>
+						<label>Sort by:</label>
+						<select>
+							<option value="popularity">Popularity Descending</option>
+							<option value="popularity">Popularity Ascending</option>
+							<option value="rating">Rating Descending</option>
+							<option value="rating">Rating Ascending</option>
+							<option value="date">Release date Descending</option>
+							<option value="date">Release date Ascending</option>
+						</select>
+						<a href="#" class="list"><i class="ion-ios-list-outline "></i></a>
+						<a href="#" class="grid"><i class="ion-grid active"></i></a>
+					</div>
+					<div class="flex-wrap-movielist">
+						
+						{% for movie in object_list %}
+						<div class="movie-item-style-2 movie-item-style-1">
+							<a href="{{ movie.get_absolute_url }}"><img src="{{ movie.image.url }}" alt=""></a>
+							<div class="hvr-inner">
+								<a href="{{ movie.get_absolute_url }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+							</div>
+							<div class="mv-item-infor">
+								<h6><a href="{{ movie.get_absolute_url }}">{{ movie.title }}</a></h6>
+								<p class="rate"><i class="ion-android-star"></i><span>{{ movie.rating }}</span> /10</p>
+								<P><span>Views: {{ movie.views }}</span></P>
+							</div>
+						</div>
+						{% endfor %}
+						
+					</div>
+					<div class="topbar-filter">
+						<label>Movies per page:</label>
+						<select>
+							<option value="range">20 Movies</option>
+							<option value="saab">10 Movies</option>
+						</select>
+
+						
+						{% if is_paginated %}
+							<div class="pagination2">
+								<span>{{page_obj}}:</span>
+								
+								{% if page_obj.has_previous %}
+									<a href="?page={{ page_obj.previous_page_number }}"><i class="ion-arrow-left-b"></i></a>
+								{% endif %}
+									
+								<a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a>
+					
+								{% if page_obj.has_next %}
+									<a href="?page={{ page_obj.next_page_number }}"><i class="ion-arrow-right-b"></i></a>
+								{% endif %}
+									
+							</div>
+						{% endif %}
+							
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}
+    

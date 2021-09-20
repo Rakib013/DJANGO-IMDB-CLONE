@@ -1,0 +1,396 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7 no-js" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8 no-js" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en" class="no-js">
+
+<!-- homev2_light16:29-->
+<head>
+	<!-- Basic need -->
+	
+	<title>Movies</title>
+		
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="">
+	<link rel="profile" href="#">
+
+    <!--Google Font-->
+    <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
+	<!-- Mobile specific meta -->
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name="format-detection" content="telephone-no">
+
+	<!-- CSS files -->
+	<link rel="stylesheet" href={% static "css/plugins.css" %}>
+	<link rel="stylesheet" href={% static 'css/style.css' %} >
+
+</head>
+<body>
+	<!--preloading-->
+	<div id="preloader">
+		<div id="status">
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+	<!--end of preloading-->
+	
+	
+	<!--login form popup-->
+	{% include './login.html' %}
+	<!--end of login form popup-->
+		
+	
+	<!--signup form popup-->
+	{% include './signup.html' %}
+	<!--end of signup form popup-->
+	
+	
+	<!-- BEGIN | Header -->
+	{% include './header.html' %}
+	<!-- END | Header -->
+{% block content %}
+
+
+<div class="slider movie-items">
+	<div class="container">
+		<div class="row">
+			<div class="title-hd">
+				{% if form.errors %}
+					<h3 style="left: 0; 
+					right: 0;margin: auto; 
+					color: white; background-color: rgb(53, 52, 143); 
+					padding: 12px;border-radius: 20px;">Your username or password is incorrect!</h3>
+				{% endif %}
+			</div>
+			<div class="social-link">
+				<p>Follow us: </p>
+				<a href="#"><i class="ion-social-facebook"></i></a>
+				<a href="#"><i class="ion-social-twitter"></i></a>
+				<a href="#"><i class="ion-social-googleplus"></i></a>
+				<a href="#"><i class="ion-social-youtube"></i></a>
+			</div>
+			<div class="title-hd">
+				
+				{% if movie_status %}
+					<h2>{{status}}</h2>
+				{% elif not form.errors %}
+					<h2>Comming Soon ...</h2>
+				{% endif %}
+					
+			</div>
+	    	<div  class="slick-multiItemSlider">
+				{% for movie in movie_banner %}
+					<div class="movie-item">
+						<div class="mv-img">
+							<a href="{{ movie.get_absolute_url }}"><img src={{ movie.image.url }} alt="" width="285" height="437"></a>
+						</div>
+						<div class="title-in">
+							<div class="cate">
+								
+								{% if movie.category == "action" %}
+									<span class="blue"><a href="#">{{ movie.category }}</a></span>
+								{% elif movie.category == "comedy" %}
+								<span class="yell"><a href="#">{{ movie.category }}</a></span>
+									{% elif movie.category == "adventure" %}
+								<span class="orange"><a href="#">{{ movie.category }}</a></span>
+									{% elif movie.category == "drama" %}
+								<span class="green"><a href="#">{{ movie.category }}</a></span>
+									{% elif movie.category == "romantic" %}
+								<span class="blue"><a href="#">{{ movie.category }}</a></span>
+									{% elif movie.category == "horror" %}
+								<span class="yell"><a href="#">{{ movie.category }}</a></span>
+									{% elif movie.category == "thriller" %}
+								<span class="orange"><a href="#">{{ movie.category }}</a></span>
+									{% elif movie.category == "survivour" %}
+								<span class="green"><a href="#">{{ movie.category }}</a></span>
+									{% elif movie.category == "scifi" %}
+								<span class="blue"><a href="#">{{ movie.category }}</a></span>
+								{% endif %}
+			
+							</div>
+							<h6><a href="{{ movie.get_absolute_url }}">{{ movie.title }}</a></h6>
+							<p><i class="ion-android-star"></i><span>{{ movie.rating }}</span> /10</p>
+						</div>
+					</div>
+				{% endfor %}
+			
+	    	</div>
+	    </div>
+	</div>
+</div>
+<div class="movie-items">
+	<div class="container">
+		<div class="row ipad-width">
+			<div class="col-md-8">
+				<div class="title-hd">
+					<h2>in theater</h2>
+					<a href="#" class="viewall">View all <i class="ion-ios-arrow-right"></i></a>
+				</div>
+				<div class="tabs">
+					<ul class="tab-links">
+						
+						{% if movie_status %}
+						{% else %}
+							<li class="active"><a href="">#All</a></li>  
+						{% endif %}
+						<li><a href="{% url "movie_status" "popular" %}">#Popular</a></li>
+						<li><a href="{% url "movie_status" "coming soon" %}"> #Coming soon</a></li>
+						<li><a href="{% url "movie_status" "top rated" %}">  #Top rated  </a></li>
+						<li><a href="{% url "movie_status" "most watched" %}"> #Most reviewed</a></li> 
+							                      
+					</ul>
+				    <div class="tab-content">
+				        <div id="tab1" class="tab active">
+				            <div class="row">
+				            	<div class="slick-multiItem">
+									{% if movie_status %}
+	
+										{% for movie in movie_status %}
+										<div class="slide-it">
+											<div class="movie-item">
+												<div class="mv-img">
+													<img src="{{ movie.image.url }}" alt="" width="185" height="284">
+												</div>
+												<div class="hvr-inner">
+													<a  href="{{ movie.get_absolute_url }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+												</div>
+												<div class="title-in">
+													<h6><a href="#">{{movie.title}}</a></h6>
+													<p><i class="ion-android-star"></i><span>{{ movie.rating }}</span> /10</p>
+												</div>
+											</div>
+										</div>
+										{% endfor %}
+											
+									{% else %}
+			
+				            		
+									{% for movie in all_movies %}
+									<div class="slide-it">
+										<div class="movie-item">
+											<div class="mv-img">
+												<img src="{{ movie.image.url }}" alt="" width="185" height="284">
+					            			</div>
+					            			<div class="hvr-inner">
+												<a  href="{{ movie.get_absolute_url }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+					            			</div>
+					            			<div class="title-in">
+												<h6><a href="{{ movie.get_absolute_url }}">{{ movie.title }}</a></h6>
+					            				<p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+					            			</div>
+					            		</div>
+				            		</div>
+									{% endfor %}
+										
+									{% endif %}
+				            	</div>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+				<div class="title-hd">
+					<h2>on tv</h2>
+					<a href="#" class="viewall">View all <i class="ion-ios-arrow-right"></i></a>
+				</div>
+				<div class="tabs">
+					<ul class="tab-links">
+						<li><a href=""> #All</a></li>
+						<li><a href="{% url "movie_status" "popular" %}">#Popular</a></li>
+						<li><a href="{% url "movie_status" "coming soon" %}"> #Coming soon</a></li>
+						<li><a href="{% url "movie_status" "top rated" %}">  #Top rated  </a></li>
+						<li><a href="{% url "movie_status" "most reviewed" %}"> #Most reviewed</a></li>                        
+					</ul>
+				    <div class="tab-content">
+				        <div id="tab21" class="tab active">
+				            <div class="row">
+				            	<div class="slick-multiItem">
+				            		
+									{% if movie_status %}
+										{% for movie in movie_status %}
+										<div class="slide-it">
+											<div class="movie-item">
+												<div class="mv-img">
+													<img src="{{ movie.image.url }}" alt="" width="185" height="284">
+												</div>
+												<div class="hvr-inner">
+													<a  href="{{ movie.get_absolute_url }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+												</div>
+												<div class="title-in">
+													<h6><a href="#">{{ movie.title }}</a></h6>
+													<p><i class="ion-android-star"></i><span>{{ movie.ranking }}</span> /10</p>
+												</div>
+											</div>
+										</div>
+										{% endfor %}
+									{% else %}
+									
+									{% for movie in all_movies %}
+									<div class="slide-it">
+										<div class="movie-item">
+											<div class="mv-img">
+												<img src="{{ movie.image.url }}" alt="" width="185" height="284">
+											</div>
+											<div class="hvr-inner">
+												<a  href="{{ movie.get_absolute_url }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+											</div>
+											<div class="title-in">
+												<h6><a href="#">{{ movie.title }}</a></h6>
+												<p><i class="ion-android-star"></i><span>{{ movie.ranking }}</span> /10</p>
+											</div>
+										</div>
+									</div>
+									{% endfor %}
+										
+									{% endif %}
+										
+										
+
+				            	</div>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="sidebar">
+					<div class="celebrities">
+						<h4 class="sb-title">Spotlight Celebrities</h4>
+						{% for celebrity in spot_celebrity  %}
+						<div class="celeb-item">
+							<a href="#"><img style="width: 70px;height: 70px;object-fit: cover;" src={{celebrity.image.url}} alt="" width="70" height="70"></a>
+							<div class="celeb-author">
+								<h6><a href="{{ celebrity.get_absolute_url }}">{{ celebrity.c_name }}</a></h6>
+								<span>{{ celebrity.title }}</span>
+							</div>
+						</div>
+						{% endfor %}
+						<a href="{% url "celebrity" %}" class="btn">See all celebrities<i class="ion-ios-arrow-right"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="trailers">
+	<div class="container">
+		<div class="row ipad-width">
+			<div class="col-md-12">
+				<div class="title-hd">
+					<h2>in theater</h2>
+					<a href="#" class="viewall">View all <i class="ion-ios-arrow-right"></i></a>
+				</div>
+				<div class="videos">
+				 	<div class="slider-for-2 video-ft">
+				 		<div>
+					    	<iframe class="item-video" src="#" data-src="https://www.youtube.com/embed/1Q8fG0TtVAY"></iframe>
+					    </div>
+					    <div>
+					    	<iframe class="item-video" src="#" data-src="https://www.youtube.com/embed/w0qQkSuWOS8"></iframe>
+					    </div>
+					    <div>
+					    	<iframe class="item-video" src="#" data-src="https://www.youtube.com/embed/44LdLqgOpjo"></iframe>
+					    </div>
+					    <div>
+					    	<iframe class="item-video" src="#" data-src="https://www.youtube.com/embed/gbug3zTm3Ws"></iframe>
+					    </div>
+					    <div>
+					    	<iframe class="item-video" src="#" data-src="https://www.youtube.com/embed/e3Nl_TCQXuw"></iframe>
+					    </div>
+					    <div>
+					    	<iframe class="item-video" src="#" data-src="https://www.youtube.com/embed/NxhEZG0k9_w"></iframe>
+					    </div>
+						
+						
+					</div>
+					<div class="slider-nav-2 thumb-ft">
+						<div class="item">
+							<div class="trailer-img">
+								<img src={% static "images/uploads/trailer7.jpg" %}  alt="photo by Barn Images" width="4096" height="2737">
+							</div>
+							<div class="trailer-infor">
+	                        	<h4 class="desc">Wonder Woman</h4>
+	                        	<p>2:30</p>
+	                        </div>
+						</div>
+						<div class="item">
+							<div class="trailer-img">
+								<img src={% static "images/uploads/trailer2.jpg" %}  alt="photo by Barn Images" width="350" height="200">
+							</div>
+							<div class="trailer-infor">
+	                        	<h4 class="desc">Oblivion: Official Teaser Trailer</h4>
+	                        	<p>2:37</p>
+	                        </div>
+						</div>
+						<div class="item">
+							<div class="trailer-img">
+								<img src={% static "images/uploads/trailer6.jpg" %} alt="photo by Joshua Earle">
+							</div>
+							<div class="trailer-infor">
+	                        	<h4 class="desc">Exclusive Interview:  Skull Island</h4>
+	                        	<p>2:44</p>
+	                        </div>
+						</div>
+						<div class="item">
+							<div class="trailer-img">
+								<img src={% static "images/uploads/trailer3.png" %} alt="photo by Alexander Dimitrov" width="100" height="56">
+							</div>
+							<div class="trailer-infor">
+	                        	<h4 class="desc">Logan: Director James Mangold Interview</h4>	
+	                        	<p>2:43</p>
+	                        </div>
+						</div>
+						<div class="item">
+							<div class="trailer-img">
+								<img src={% static "images/uploads/trailer4.png" %}  alt="photo by Wojciech Szaturski" width="100" height="56">
+							</div>
+							<div class="trailer-infor">
+	                        	<h4 class="desc">Beauty and the Beast: Official Teaser Trailer 2</h4>	
+	                        	<p>2: 32</p>
+	                        </div>	
+						</div>
+						<div class="item">
+							<div class="trailer-img">
+								<img src={% static "images/uploads/trailer5.jpg" %}  alt="photo by Wojciech Szaturski" width="360" height="189">
+							</div>
+							<div class="trailer-infor">
+	                        	<h4 class="desc">Fast&Furious 8</h4>	
+	                        	<p>3:11</p>
+	                        </div>	
+						</div>
+					
+					</div>
+				</div>   
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}
+
+<!-- latest new v2 section-->
+{% include './latest_news.html' %}
+<!--end of latest new v2 section-->
+
+
+<!-- footer v2 section-->
+{% include './footer.html' %}
+<!-- end of footer v2 section-->
+	
+
+<script src={% static "js/jquery.js" %}></script>
+<script src={% static "js/plugins.js" %}></script>
+<script src={% static "js/plugins2.js" %}></script>
+<script src={% static "js/custom.js" %}></script>
+</body>
+
+<!-- homev2_light16:30-->
+</html>

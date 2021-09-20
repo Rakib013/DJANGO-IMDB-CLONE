@@ -1,0 +1,115 @@
+{% load static %}
+<header class="ht-header">
+	<div class="container">
+		<nav class="navbar navbar-default navbar-custom">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header logo">
+				    <div class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					    <span class="sr-only">Toggle navigation</span>
+					    <div id="nav-icon1">
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+				    </div>
+				    <!-- <a href="/"><img class="logo" src={% static "images/logo1.png" %} alt="" width="119" height="58"></a> -->
+					<a href="/"><h2 style="color: white; 
+						background-color: rgb(33, 45, 155); 
+						width: 60px;
+						height: 60px;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						border-radius: 50%;" 
+						class="my-logo">@R</h2></a>
+			    </div>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav flex-child-menu menu-left">
+						<li class="hidden">
+							<a href="#page-top"></a>
+						</li>
+						<li class="dropdown first">
+							<a href="/" class="btn btn-default dropdown-toggle lv1" >
+							Home 
+							</a>
+							
+						</li>
+						<li class="dropdown first">
+							<a href="{% url "movies" %}" class="btn btn-default dropdown-toggle lv1" >
+							movies
+							</a>
+						</li>
+						<li class="dropdown first">
+							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
+							gener<i class="fa fa-angle-down" aria-hidden="true"></i>
+							</a>
+							<ul class="dropdown-menu level1">			
+								<li><a href="{% url "movie_category" 'action' %}">Action</a></li>
+								<li><a href="{% url "movie_category" 'adventure' %}">Adventure</a></li>
+								<li><a href="{% url "movie_category" 'romantic' %}">Romantic</a></li>
+								<li><a href="{% url "movie_category" 'comedy' %}">Comedy</a></li>
+								<li><a href="{% url "movie_category" 'drama' %}">Drama</a></li>
+								<li><a href="{% url "movie_category" 'horror' %}">Horror</a></li>
+								<li><a href="{% url "movie_category" 'thriller' %}">Thriller</a></li>
+								<li><a href="{% url "movie_category" 'survivour' %}">Survivour</a></li>
+								<li><a href="{% url "movie_category" 'scifi' %}">Sci-Fi</a></li>
+							</ul>
+						</li>
+						<li class="dropdown first">
+							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
+							Movie language<i class="fa fa-angle-down" aria-hidden="true"></i>
+							</a>
+							<ul class="dropdown-menu level1">			
+								<li><a href="{% url "movie_language" 'english' %}">English</a></li>
+								<li><a href="{% url "movie_language" 'bangla' %}">Bangla</a></li>
+							</ul>
+						</li>
+						<li class="dropdown first">
+							<a href="{% url "celebrity" %}" class="btn btn-default dropdown-toggle lv1" >
+							celebrities
+							</a>
+							
+						</li>
+						<li class="dropdown first">
+							<a href="{% url "blogs" %}" class="btn btn-default dropdown-toggle lv1">
+							Blogs
+							</a>
+							
+						</li>
+					</ul>
+					<ul style="display:flex; align-items: center;" class="nav navbar-nav flex-child-menu menu-right">               
+						<li><a href="#">Help</a></li>
+						
+						{% if user.is_authenticated %}
+							<li><a href="{% url "logout" %}">Log Out</a></li>
+							<div style="display: flex;">
+								<li style="position: relative;"><a href="{% url "profile" %}"><img style="width: 60px;
+									height: 60px; object-fit: cover; border-radius: 50%;" 
+									src="{{ profile.pic.url }}" alt=""></a>
+								</li>
+								<span style="background-color: rgb(6, 231, 44); position: absolute;
+								width: 12px;
+								height: 12px;
+								border-radius: 50%;
+								right: auto;"></span>
+							</div>
+						{% else %}
+							<li class="loginLink"><a href="#">LOG In</a></li>
+							<li class="btn signupLink"><a href="#">sign up</a></li>
+						{% endif %}
+					</ul>
+				</div>
+			<!-- /.navbar-collapse -->
+	    </nav>
+	    
+	    <!-- top search form -->
+	    <div class="top-search">
+	    	<select>
+				<option value="united">TV show</option>
+				<option value="saab">Others</option>
+			</select>
+			<input type="text" placeholder="Search for a movie, TV Show or celebrity that you are looking for">
+	    </div>
+	</div>
+</header>

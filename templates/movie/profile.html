@@ -1,0 +1,120 @@
+{% extends './home.html' %}
+{% load static %}
+
+{% block content %}
+<div class="hero user-hero">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="hero-ct">
+					<h1>{{profile.user.username}}</h1>
+					<ul class="breadcumb">
+						<li class="active"><a href="#">Home</a></li>
+						<li> <span class="ion-ios-arrow-right"></span>Profile</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="page-single">
+	<div class="container">
+		<div class="row ipad-width">
+			<div class="col-md-3 col-sm-12 col-xs-12">
+				<div class="user-information">
+					<div class="user-img">
+						<a href="#"><img style="width: 120px;
+						height: 120px; object-fit: cover; 
+						border-radius: 50%;" src={{profile.pic.url}} alt=""><br></a>
+						<form method="POST" action="{% url "pic_update" %}" enctype="multipart/form-data">
+							{% csrf_token %}
+							<input style="margin-bottom: 20px;margin-left: 20px;" type="file" name="pic" id="pic">
+							<div>
+								<input style="border: none; border-radius: 30px; width: 200px;" class="redbtn" type="submit" value="Change Avatar">
+							</div>
+						</form>
+					</div>
+					<div class="user-fav">
+						<p>Account Details</p>
+						<ul>
+							<li  class="active"><a href="{% url "profile" %}">Profile</a></li>
+							<li><a href="{% url "favorites" %}">Favorite movies</a></li>
+							<li><a href="{% url "rate" %}">Rated movies</a></li>
+						</ul>
+					</div>
+					<div class="user-fav">
+						<p>Others</p>
+						<ul>
+							<li><a href="#">Change password</a></li>
+							<li><a href="#">Log out</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-9 col-sm-12 col-xs-12">
+				<div class="form-style-1 user-pro" action="#">
+					<form method="POST" action="{% url "user_update" %}" class="user">
+						{% csrf_token %}
+						<h4>01. Profile details</h4>
+						<div class="row">
+							<div class="col-md-6 form-it">
+								<label>Username</label>
+								<input type="text" name="username" id="username" value="{{ user.username }}">
+							</div>
+							<div class="col-md-6 form-it">
+								<label>Email Address</label>
+								<input type="email" name="email" id="email" value="{{ user.email }}">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-it">
+								<label>First Name</label>
+								<input type="text" name="first_name" id="first_name" value="{{ user.first_name }}">
+							</div>
+							<div class="col-md-6 form-it">
+								<label>Last Name</label>
+								<input type="text" name="last_name" id="last_name" value="{{ user.last_name }}">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-2">
+								<input class="submit" type="submit" value="save">
+							</div>
+						</div>
+					</form>
+								
+					<form method="POST" action="{% url "password_update" %}" class="password">
+						{% csrf_token %}
+						<h4>02. Change password</h4>
+						<div class="row">
+							<div class="col-md-6 form-it">
+								<label>Old Password</label>
+								<input type="text" placeholder="**********">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-it">
+								<label>New Password</label>
+								<input type="password" name="password" id="password" placeholder="***************">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-it">
+								<label>Confirm New Password</label>
+								<input type="password" name="password2" id="repassword2" placeholder="*************** ">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-2">
+								<input class="submit" type="submit" value="change">
+							</div>
+						</div>	
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}
+	

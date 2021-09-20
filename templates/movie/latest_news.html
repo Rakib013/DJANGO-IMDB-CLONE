@@ -1,0 +1,46 @@
+{% load static %}
+<div class="latestnew full-width">
+    <div class="row">
+        <div class="col-md-9">
+            <!-- <div class="ads adsv2">
+                <img src={% static "images/uploads/ads2.png" %} alt="">
+            </div> -->
+            <div class="title-hd">
+                <h2>Latest news</h2>
+                <a href="bloggrid.html" class="viewall">see all news <i class="ion-ios-arrow-right"></i></a>
+            </div>
+            <div  class="latestnewv2">
+               
+                {% for news in latest_news  %}
+                    <div class="blog-item-style-2">
+                        <a href="blogdetail.html"><img style="width: 183px; height: 102px; object-fit: cover;" src={{ news.thumb_img.url }} alt=""></a>
+                        <div class="blog-it-infor">
+                            <h3><a href="{{ news.get_absolute_url }}">{{ news.title }}</a></h3>
+                            <span class="time">{{ news.date }}</span>
+                            <p>{{ news.blog }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+                
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="sidebar">
+                <div class="sb-facebook sb-it">
+                    <h4 class="sb-title">Find us on Facebook</h4>
+                    <iframe src="#" data-src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ftemplatespoint.net%2F%3Ffref%3Dts&tabs=timeline&width=340&height=315px&small_header=true&adapt_container_width=false&hide_cover=false&show_facepile=true&appId"  height="315" style="width:100%;border:none;overflow:hidden" ></iframe>
+                </div>
+                <div class="sb-twitter sb-it">
+                    <h4 class="sb-title">Tweet to us</h4>
+                    <div class="slick-tw">
+                        <div class="tweet item" id=""><!-- Put your twiter id here -->
+                        </div>
+                        <div class="tweet item" id=""><!-- Put your 2nd twiter account id here -->
+                        </div>
+                    </div>					
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
